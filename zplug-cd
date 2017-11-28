@@ -1,7 +1,9 @@
 #autoload
 
-if ! (( $+commands[fzy] )); then
-    echo "fzy: not found" >&2
+filter=fzf
+
+if ! (( $+commands[$filter] )); then
+    echo "$filter: not found" >&2
     return 1
 fi
 
@@ -10,7 +12,7 @@ local repo
 for repo in ${(uk)zplugs[@]:gs:@:}
 do
     echo "$repo"
-done | fzy | read repo
+done | $filter | read repo
 
 if [[ -d ${~repo} ]]; then
     dir=${~repo}
